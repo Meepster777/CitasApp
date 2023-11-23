@@ -1,11 +1,11 @@
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Security.Cryptography;
 using API.Data;
+using API.DTOs;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API.DTOs;
-using API.Interfaces;
 
 namespace API.Controllers;
 
@@ -39,8 +39,7 @@ public class AccountController : BaseApiController
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return new UserDto
-        {
+        return new UserDto {
             Username = user.UserName,
             Token = _tokenService.CreateToken(user)
         };
@@ -58,13 +57,12 @@ public class AccountController : BaseApiController
 
         var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-        for (int i = 0; i < computedHash.Length; i++)
+        for(int i = 0; i < computedHash.Length; i++)
         {
-            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized(USER_PASSWORD_ERROR_MESSAGE);
+            if(computedHash[i] != user.PasswordHash[i]) return Unauthorized(USER_PASSWORD_ERROR_MESSAGE);
         }
 
-        return new UserDto
-        {
+        return new UserDto {
             Username = user.UserName,
             Token = _tokenService.CreateToken(user)
         };

@@ -10,7 +10,7 @@ import { IUser } from './_models/iuser';
 export class AppComponent implements OnInit {
   title = 'Citas App';
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
     this.setCurrentUser();

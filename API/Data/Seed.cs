@@ -1,4 +1,4 @@
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using API.Entities;
@@ -16,7 +16,7 @@ public class Seed
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         var users = JsonSerializer.Deserialize<List<AppUser>>(userData, options);
 
-        foreach (var user in users)
+        foreach(var user in users)
         {
             using var hmac = new HMACSHA512();
 
@@ -28,6 +28,5 @@ public class Seed
         }
 
         await context.SaveChangesAsync();
-
     }
 }

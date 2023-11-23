@@ -1,8 +1,7 @@
+using API;
 using API.Data;
 using API.Extensions;
-using API.Middleware;
 using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +17,6 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(builder => builder.AllowAnyHeader()
                             .AllowAnyMethod()
                             .WithOrigins("https://localhost:4200"));
-
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -33,10 +31,10 @@ try
     await context.Database.MigrateAsync();
     await Seed.SeedUsers(context);
 }
-catch (Exception ex)
+catch(Exception ex)
 {
     var logger = services.GetService<ILogger<Program>>();
-    logger.LogError(ex, "Ha ocurridoun error durante el sembrado");
+    logger.LogError(ex, "Ha ocurrido un error durante el sembrado");
 }
 
 app.Run();

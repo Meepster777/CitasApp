@@ -1,4 +1,4 @@
-using API.Data;
+﻿using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ public class BuggyController : BaseApiController
     [HttpGet("auth")]
     public ActionResult<string> GetSecret()
     {
-        return "Secreto de la api";
+        return "Secreto de la API";
     }
 
     [HttpGet("not-found")]
@@ -44,8 +44,7 @@ public class BuggyController : BaseApiController
     [HttpGet("bad-request")]
     public ActionResult<string> GetBadRequest()
     {
-        return BadRequest("Usted ha solicitado algo de forma incorrecta");
+        return BadRequest("Usted ha solicitado algo de forma incorrecta.");
     }
 
 }
-

@@ -26,9 +26,11 @@ public class UserRepository : IUserRepository
             .SingleOrDefaultAsync();
     }
 
-    public Task<IEnumerable<MemberDto>> GetMembersAsync()
+    public async Task<IEnumerable<MemberDto>> GetMembersAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Users
+            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+            .ToListAsync();
     }
 
     public async Task<AppUser> GetUserByIdAsync(int id)
@@ -39,15 +41,15 @@ public class UserRepository : IUserRepository
     public async Task<AppUser> GetUserByUsernameAsync(string username)
     {
         return await _context.Users
-        .Include(p => p.Photos)
-        .SingleOrDefaultAsync(u => u.UserName == username);
+            .Include(p => p.Photos)
+            .SingleOrDefaultAsync(u => u.UserName == username);
     }
 
     public async Task<IEnumerable<AppUser>> GetUsersAsync()
     {
         return await _context.Users
-        .Include(p => p.Photos)
-        .ToListAsync();
+            .Include(p => p.Photos)
+            .ToListAsync();
     }
 
     public async Task<bool> SaveAllAsync()

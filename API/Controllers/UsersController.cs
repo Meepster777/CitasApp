@@ -25,10 +25,10 @@ public class UsersController : BaseApiController
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
     {
         var users = await _userRepository.GetMembersAsync();
-
+        
         return Ok(users);
     }
-
+    
     [HttpGet("{username}")]
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
